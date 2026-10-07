@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart - Premium Redesign</title>
+    
+    <!-- Modern Premium Font: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons for crisp, modern icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            /* Color Palette */
+            --flipkart-blue: #2874F0;
+            --flipkart-blue-dark: #1A5BCA;
+            --flipkart-yellow: #FFC200;
+            
+            --bg-body: #F4F5F7;
+            --bg-white: #FFFFFF;
+            
+            --text-main: #111827;
+            --text-secondary: #4B5563;
+            --text-muted: #9CA3AF;
+            
+            --border-light: #E5E7EB;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+            
+            --max-width: 1280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--bg-white);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--flipkart-blue);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .brand-logo span {
+            color: var(--flipkart-yellow);
+        }
+
+        .search-wrapper {
+            flex: 1;
+            position: relative;
+            max-width: 600px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+            background-color: #F9FAFB;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            background-color: var(--bg-white);
+            border-color: var(--flipkart-blue);
+            box-shadow: 0 0 0 3px rgba(40, 116, 240, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: var(--text-muted);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--flipkart-blue);
+        }
+
+        .nav-link i {
+            font-size: 22px;
+        }
+
+        /* --- CATEGORIES --- */
+        .categories-nav {
+            background-color: var(--bg-white);
+            padding: 16px 0;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+
+        .cat-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            overflow-x: auto;
+            gap: 24px;
+        }
+
+        .cat-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-main);
+            min-width: 80px;
+            transition: transform 0.2s ease;
+        }
+
+        .cat-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .cat-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-full);
+            background-color: #F3F4F6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: var(--flipkart-blue);
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .cat-item:hover .cat-icon-wrapper {
+            background-color: var(--flipkart-blue);
+            color: var(--bg-white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cat-name {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* --- HERO BANNER --- */
+        .main-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px 48px 24px;
+        }
+
+        .hero-banner {
+            width: 100%;
+            height: 320px;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, var(--flipkart-blue) 0%, #6366f1 100%);
+            display: flex;
+            align-items: center;
+            padding: 48px;
+            color: var(--bg-white);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+
+        .hero-btn {
+            background-color: var(--flipkart-yellow);
+            color: var(--text-main);
+            padding: 14px 28px;
+            border-radius: var(--radius-full);
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .hero-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- SECTION HEADER --- */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .view-all {
+            color: var(--flipkart-blue);
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* --- PRODUCT GRID --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+            transform: translateY(-4px);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--bg-white);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .favorite-btn:hover {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+            background-color: #F9FAFB;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .product-brand {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: #059669;
+            color: white;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm, 4px);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .product-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .price-current {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .price-original {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .price-discount {
+            font-size: 14px;
+            font-weight: 700;
+            color: #059669;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-actions { display: none; }
+            .hero-banner {
+                padding: 32px;
+                height: 280px;
+            }
+            .hero-title { font-size: 32px; }
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 16px;
+            }
+            .product-img-wrapper { height: 160px; }
+            .price-current { font-size: 18px; }
+            .price-original, .price-discount { font-size: 12px; }
+            .product-title { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                Flipkart<span>.</span>
+            </a>
+            
+            <div class="search-wrapper">
+                <i class="ph ph-magnifying-glass search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search for products, brands and more">
+            </div>
+
+            <div class="nav-actions">
+                <a href="#" class="nav-link">
+                    <i class="ph ph-user"></i>
+                    Login
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="ph ph-shopping-cart"></i>
+                    Cart
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="ph ph-storefront"></i>
+                    Become a Seller
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CATEGORIES -->
+    <div class="categories-nav">
+        <div class="cat-container">
+            <a href="#" class="cat-item">
+                <div class="cat-icon-wrapper"><i class="ph ph-device-mobile"></i></div>
+                <span class="cat-name">Mobiles</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon-wrapper"><i class="ph ph-t-shirt"></i></div>
+                <span class="cat-name">Fashion</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon-wrapper"><i class="ph ph-desktop"></i></div>
+                <span class="cat-name">Electronics</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon-wrapper"><i class="ph ph-armchair"></i></div>
+                <span class="cat-name">Home</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon-wrapper"><i class="ph ph-airplane-tilt"></i></div>
+                <span class="cat-name">Travel</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon-wrapper"><i class="ph ph-washing-machine"></i></div>
+                <span class="cat-name">Appliances</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon-wrapper"><i class="ph ph-baby"></i></div>
+                <span class="cat-name">Toys & Baby</span>
+            </a>
+            <a href="#" class="cat-item">
+                <div class="cat-icon-wrapper"><i class="ph ph-motorcycle"></i></div>
+                <span class="cat-name">Two Wheelers</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+        
+        <!-- HERO BANNER -->
+        <div class="hero-banner">
+            <div class="hero-content">
+                <h1 class="hero-title">The Big Billion Days Are Here.</h1>
+                <p class="hero-subtitle">Up to 80% off on electronics, fashion, and home appliances. Unbeatable prices just for you.</p>
+                <button class="hero-btn">Shop Now</button>
+            </div>
+        </div>
+
+        <!-- PRODUCT SECTION 1 -->
+        <div class="section-header">
+            <h2 class="section-title">Best of Electronics</h2>
+            <a href="#" class="view-all">View All <i class="ph ph-arrow-right"></i></a>
+        </div>
+        
+        <div class="product-grid" style="margin-bottom: 48px;">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80" alt="iPhone 15">
+                </div>
+                <div class="product-brand">APPLE</div>
+                <h3 class="product-title">iPhone 15 Pro Max (Titanium, 256GB)</h3>
+                <div>
+                    <span class="rating-badge">4.8 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(2,431)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹1,49,900</span>
+                    <span class="price-original">₹1,59,900</span>
+                    <span class="price-discount">6% off</span>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500&q=80" alt="ASUS ROG">
+                </div>
+                <div class="product-brand">ASUS</div>
+                <h3 class="product-title">ROG Strix G15 (2024) Gaming Laptop, RTX 4060</h3>
+                <div>
+                    <span class="rating-badge">4.6 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(894)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹1,09,990</span>
+                    <span class="price-original">₹1,45,990</span>
+                    <span class="price-discount">24% off</span>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500&q=80" alt="Sony Headphones">
+                </div>
+                <div class="product-brand">SONY</div>
+                <h3 class="product-title">WH-1000XM5 Wireless Active Noise Cancelling</h3>
+                <div>
+                    <span class="rating-badge">4.9 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(12,841)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹24,990</span>
+                    <span class="price-original">₹34,990</span>
+                    <span class="price-discount">28% off</span>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80" alt="Samsung Watch">
+                </div>
+                <div class="product-brand">SAMSUNG</div>
+                <h3 class="product-title">Galaxy Watch 6 Classic LTE</h3>
+                <div>
+                    <span class="rating-badge">4.5 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(4,211)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹37,999</span>
+                    <span class="price-original">₹45,999</span>
+                    <span class="price-discount">17% off</span>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" alt="JBL Speaker">
+                </div>
+                <div class="product-brand">JBL</div>
+                <h3 class="product-title">Charge 5 Bluetooth Speaker (Black)</h3>
+                <div>
+                    <span class="rating-badge">4.7 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(6,220)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹12,999</span>
+                    <span class="price-original">₹15,999</span>
+                    <span class="price-discount">18% off</span>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&q=80" alt="Apple Watch">
+                </div>
+                <div class="product-brand">APPLE</div>
+                <h3 class="product-title">Watch Series 9 (GPS, 45mm) Midnight</h3>
+                <div>
+                    <span class="rating-badge">4.8 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(3,190)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹44,900</span>
+                    <span class="price-original">₹49,900</span>
+                    <span class="price-discount">10% off</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT SECTION 2 -->
+        <div class="section-header">
+            <h2 class="section-title">Trending Styles</h2>
+            <a href="#" class="view-all">View All <i class="ph ph-arrow-right"></i></a>
+        </div>
+        
+        <div class="product-grid">
+            <!-- Product 7 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" alt="Nike Sneaker">
+                </div>
+                <div class="product-brand">NIKE</div>
+                <h3 class="product-title">Air Max 270 React Premium Edition</h3>
+                <div>
+                    <span class="rating-badge">4.3 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(8,412)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹8,995</span>
+                    <span class="price-original">₹14,995</span>
+                    <span class="price-discount">40% off</span>
+                </div>
+            </div>
+            
+            <!-- Product 8 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80" alt="T-Shirt">
+                </div>
+                <div class="product-brand">LEVI'S</div>
+                <h3 class="product-title">Men's Solid Pure Cotton Slim Fit T-Shirt</h3>
+                <div>
+                    <span class="rating-badge">4.1 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(2,105)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹699</span>
+                    <span class="price-original">₹1,499</span>
+                    <span class="price-discount">53% off</span>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&q=80" alt="Casio Watch">
+                </div>
+                <div class="product-brand">CASIO</div>
+                <h3 class="product-title">G-Shock Carbon Core Guard Series Watch</h3>
+                <div>
+                    <span class="rating-badge">4.7 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(5,114)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹8,495</span>
+                    <span class="price-original">₹9,995</span>
+                    <span class="price-discount">15% off</span>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&q=80" alt="Sunglasses">
+                </div>
+                <div class="product-brand">RAY-BAN</div>
+                <h3 class="product-title">UV Protected Aviator Unisex Sunglasses</h3>
+                <div>
+                    <span class="rating-badge">4.4 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(1,029)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹5,290</span>
+                    <span class="price-original">₹7,490</span>
+                    <span class="price-discount">29% off</span>
+                </div>
+            </div>
+            
+            <!-- Product 11 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&q=80" alt="Nike Air Force 1">
+                </div>
+                <div class="product-brand">NIKE</div>
+                <h3 class="product-title">Air Force 1 '07 Classic White Sneaker</h3>
+                <div>
+                    <span class="rating-badge">4.9 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(18,205)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹7,495</span>
+                    <span class="price-original">₹7,495</span>
+                    <span class="price-discount">0% off</span>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <button class="favorite-btn"><i class="ph ph-heart"></i></button>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&q=80" alt="Adidas Cap">
+                </div>
+                <div class="product-brand">ADIDAS</div>
+                <h3 class="product-title">Trefoil Baseball Cap (Black/White)</h3>
+                <div>
+                    <span class="rating-badge">4.2 <i class="ph-fill ph-star" style="font-size: 10px;"></i></span>
+                    <span style="font-size: 12px; color: var(--text-muted); font-weight: 500;">(1,844)</span>
+                </div>
+                <div class="product-price-row">
+                    <span class="price-current">₹999</span>
+                    <span class="price-original">₹1,499</span>
+                    <span class="price-discount">33% off</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
